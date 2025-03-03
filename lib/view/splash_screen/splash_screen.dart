@@ -37,7 +37,13 @@ class SplashScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: loginButtonColor,
                       minimumSize: Size(screenWidth * 0.90, 50),
@@ -51,7 +57,7 @@ class SplashScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () async {
                       await Navigator.of(context).push(
                         MaterialPageRoute(
@@ -59,15 +65,8 @@ class SplashScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: transparent,
-                      minimumSize: Size(screenWidth * 0.90, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                    ),
                     child: Text(
-                      'Skip',
+                      "Skip",
                       style: TextStyle(
                         fontSize: 16,
                         color: registerButtonTextColor,

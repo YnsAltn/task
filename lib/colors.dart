@@ -7,3 +7,5 @@ final white = Color(0xFFFFFFFF);
 final transparent = Color(0x00000000);
 final black = Color(0xFF000000);
 final inputBoxColor = Color(0xFFF4F4FF);
+final backGrey = Color(0xFFF4F4FF);
+final appBarTextColor = Color(0xFF090937);
