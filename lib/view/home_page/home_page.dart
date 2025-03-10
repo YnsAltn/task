@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task/colors.dart';
 
@@ -29,8 +30,8 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         title: SvgPicture.asset(
           "assets/logo/logo.svg",
-          height: 40,
-          width: 40,
+          height: 40.h,
+          width: 40.w,
           fit: BoxFit.contain,
         ),
         actions: [
@@ -75,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                 suffixIcon: Icon(Icons.filter_alt, color: Colors.grey[500]),
                 hintStyle: TextStyle(
                   color: Colors.grey[500],
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),

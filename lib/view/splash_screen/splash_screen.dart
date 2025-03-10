@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:task/colors.dart';
+import 'package:task/view/home_page/home_page.dart';
 import 'package:task/view/login_page/login_page.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -8,6 +10,12 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 4), () async {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    });
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -17,13 +25,13 @@ class SplashScreen extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            top: 200,
+            top: 150.h,
             child: Column(
               children: [
                 SvgPicture.asset(
                   "assets/logo/logo.svg",
-                  height: 180,
-                  width: 180,
+                  height: 170.h,
+                  width: 170.w,
                   fit: BoxFit.contain,
                 ),
               ],
@@ -46,14 +54,14 @@ class SplashScreen extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: loginButtonColor,
-                      minimumSize: Size(screenWidth * 0.90, 50),
+                      fixedSize: Size(340.w, 45.h),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(3),
                       ),
                     ),
                     child: Text(
                       'Login',
-                      style: TextStyle(fontSize: 16, color: white),
+                      style: TextStyle(fontSize: 16.sp, color: white),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -61,14 +69,14 @@ class SplashScreen extends StatelessWidget {
                     onPressed: () async {
                       await Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
+                          builder: (context) => const HomePage(),
                         ),
                       );
                     },
                     child: Text(
                       "Skip",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         color: registerButtonTextColor,
                       ),
                     ),

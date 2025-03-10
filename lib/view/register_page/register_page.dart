@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:task/colors.dart';
+import 'package:task/view/login_page/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -12,128 +14,142 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: white,
-      body: Center(
-        child: Container(
-          color: white,
-          height: screenHeight,
-          width: screenWidth * 0.90,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 60),
-              Center(
-                child: SvgPicture.asset(
-                  "assets/logo/logo.svg",
-                  height: 60,
-                  width: 60,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(height: 100),
-              Text("Welcome", style: TextStyle(fontSize: 18, color: black)),
-              Text(
-                "Register an account",
-                style: TextStyle(
-                  fontSize: 24,
-                  color: black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 50),
-              Text(
-                "Name",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: inputBoxColor,
-                  hintText: "John Doe",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    borderSide: BorderSide.none,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            color: white,
+            height: 690.h,
+            width: 330.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 50.h),
+                Center(
+                  child: SvgPicture.asset(
+                    "assets/logo/logo.svg",
+                    height: 50.h,
+                    width: 50.h,
+                    fit: BoxFit.contain,
                   ),
                 ),
-                style: TextStyle(color: black),
-              ),
-              SizedBox(height: 40),
-              Text(
-                "E-mail",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: black,
-                  fontWeight: FontWeight.bold,
+                SizedBox(height: 75.h),
+                Text(
+                  "Welcome",
+                  style: TextStyle(fontSize: 18.sp, color: black),
                 ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: inputBoxColor,
-                  hintText: "Enter your e-mail",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    borderSide: BorderSide.none,
+                Text(
+                  "Register an account",
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    color: black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                style: TextStyle(color: black),
-              ),
-              SizedBox(height: 40),
-              Text(
-                "Password",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: inputBoxColor,
-                  hintText: "Enter your password",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    borderSide: BorderSide.none,
+                SizedBox(height: 50.h),
+                Text(
+                  "Name",
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    color: black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                style: TextStyle(color: black),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [TextButton(onPressed: () {}, child: Text("Login"))],
-              ),
-              SizedBox(height: 60),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: loginButtonColor,
-                  minimumSize: Size(screenWidth * 0.90, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(3),
+                SizedBox(height: 5.h),
+                TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: inputBoxColor,
+                    hintText: "John Doe",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  style: TextStyle(color: black),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  "E-mail",
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    color: black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Text(
-                  'Login',
-                  style: TextStyle(fontSize: 16, color: white),
+                SizedBox(height: 5.h),
+                TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: inputBoxColor,
+                    hintText: "Enter your e-mail",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  style: TextStyle(color: black),
                 ),
-              ),
-            ],
+                SizedBox(height: 20.h),
+                Text(
+                  "Password",
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    color: black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: inputBoxColor,
+                    hintText: "Enter your password",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  style: TextStyle(color: black),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () async {
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      },
+                      child: Text("Login"),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: loginButtonColor,
+                    fixedSize: Size(360.w, 45.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  ),
+                  child: Text(
+                    'Register',
+                    style: TextStyle(fontSize: 18.sp, color: white),
+                  ),
+                ),
+                SizedBox(height: 30.h),
+              ],
+            ),
           ),
         ),
       ),
