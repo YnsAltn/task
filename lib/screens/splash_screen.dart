@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:task/colors.dart';
-import 'package:task/view/home_page/home_page.dart';
-import 'package:task/view/login_page/login_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SplashScreen extends StatelessWidget {
+import '../colors.dart';
+import 'home_page.dart';
+import 'login_page.dart';
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 4), () async {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    });
-    double screenWidth = MediaQuery.of(context).size.width;
+  _SplashScreenState createState() => _SplashScreenState();
+}
 
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  @override
+  Widget build(BuildContext context) {
+    // Splash Screen için süreli sayfa geçişini initstate yerine build içinde kullandık.
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+          (route) => false,
+        );
+      }
+    });
     return Scaffold(
       body: Stack(
         children: [
@@ -45,11 +55,11 @@ class SplashScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton(
-                    onPressed: () async {
-                      await Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
-                        ),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        (route) => false,
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -60,21 +70,21 @@ class SplashScreen extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'Login',
+                      AppLocalizations.of(context)!.login,
                       style: TextStyle(fontSize: 16.sp, color: white),
                     ),
                   ),
                   const SizedBox(height: 10),
                   TextButton(
-                    onPressed: () async {
-                      await Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(),
-                        ),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                        (route) => false,
                       );
                     },
                     child: Text(
-                      "Skip",
+                      AppLocalizations.of(context)!.skip,
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: registerButtonTextColor,

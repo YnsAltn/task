@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:task/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../colors.dart';
+import '../components/custom_appbar.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -16,12 +20,8 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: SizedBox(
-          width: 15.w,
-          child: Icon(Icons.arrow_back_ios, color: appBarTextColor),
-        ),
+      appBar: CustomAppBar(
+        title: Icon(Icons.arrow_back_ios_new),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 15.w),
@@ -29,8 +29,8 @@ class _DetailPageState extends State<DetailPage> {
               "Book Details",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: appBarTextColor,
+                fontSize: 22.sp,
+                color: Colors.black,
               ),
             ),
           ),

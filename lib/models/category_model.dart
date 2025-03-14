@@ -1,22 +1,29 @@
-class Category {
+class CategoryList {
   final int id;
   final String name;
+  final DateTime createdAt;
 
-  Category({required this.id, required this.name});
+  CategoryList({required this.id, required this.name, required this.createdAt});
 
-  factory Category.fromJson(Map<String, dynamic> json) {
-    // null kontrolü ekleyebilirsiniz
-    final id = json['id'];
-    final name = json['name'];
-
-    if (id == null || name == null) {
-      throw Exception('Invalid data: id and name are required');
-    }
-
-    return Category(id: id, name: name);
+  factory CategoryList.fromJson(Map<String, dynamic> json) {
+    return CategoryList(
+      id: json["id"],
+      name: json["name"],
+      createdAt: DateTime.parse(json["created_at"]),
+    );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name};
+class CategoryResponse {
+  final List<CategoryList> category;
+
+  CategoryResponse({required this.category});
+
+  factory CategoryResponse.fromJson(Map<String, dynamic> json) {
+    var list = json['category'] as List;
+    List<CategoryList> categoryList =
+        list.map((i) => CategoryList.fromJson(i)).toList();
+
+    return CategoryResponse(category: categoryList);
   }
 }

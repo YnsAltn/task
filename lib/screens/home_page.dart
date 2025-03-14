@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:task/colors.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,8 +24,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
@@ -36,12 +36,12 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: screenWidth * 0.05),
+            padding: EdgeInsets.only(right: 15.w),
             child: Text(
-              "Catalog",
+              AppLocalizations.of(context)!.catalog,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 25,
+                fontSize: 22.sp,
                 color: appBarTextColor,
               ),
             ),
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Divider(color: backGrey, thickness: 2),
-          SizedBox(height: 20),
+          SizedBox(height: 20.h),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -61,11 +61,11 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 20),
           Container(
-            width: screenWidth * 0.90,
-            height: 50,
+            width: 330.w,
+            height: 50.h,
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Search",
+                hintText: AppLocalizations.of(context)!.search,
                 filled: true,
                 fillColor: backGrey,
                 border: OutlineInputBorder(
@@ -106,9 +106,39 @@ class _HomePageState extends State<HomePage> {
         },
         child: Text(
           category,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
 }
+
+//class _Category extends StatelessWidget {
+//  const _Category({super.key});
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Padding(
+//      padding: EdgeInsets.symmetric(horizontal: 8),
+//      child: TextButton(
+//        style: TextButton.styleFrom(
+//          backgroundColor:
+//              selectedCategory == category ? registerButtonTextColor : backGrey,
+//          foregroundColor:
+//              selectedCategory == category ? Colors.white : Colors.grey[500],
+//          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+//        ),
+//        onPressed: () {
+//          setState(() {
+//            selectedCategory = category;
+//          });
+//        },
+//        child: Text(
+//          category,
+//          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+//        ),
+//      ),
+//    );
+//  }
+//}

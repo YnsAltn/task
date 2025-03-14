@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:task/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../colors.dart';
+import '../components/custom_appbar.dart';
 
 class ForCategory extends StatefulWidget {
   const ForCategory({super.key});
@@ -15,18 +19,17 @@ class _ForCategoryState extends State<ForCategory> {
 
     return Scaffold(
       backgroundColor: white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Icon(Icons.arrow_back_ios, color: appBarTextColor),
+      appBar: CustomAppBar(
+        title: Icon(Icons.arrow_back_ios_new),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: screenWidth * 0.05),
+            padding: EdgeInsets.only(right: 15.w),
             child: Text(
               "Best Seller",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: appBarTextColor,
+                fontSize: 22.sp,
+                color: Colors.black,
               ),
             ),
           ),
@@ -35,15 +38,13 @@ class _ForCategoryState extends State<ForCategory> {
       body: Column(
         children: [
           Divider(color: backGrey, thickness: 2),
-          SizedBox(height: 20),
-          SingleChildScrollView(scrollDirection: Axis.horizontal),
-          SizedBox(height: 20),
+          SizedBox(height: 15.h),
           Container(
-            width: screenWidth * 0.90,
-            height: 50,
+            width: 330.w,
+            height: 50.h,
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Search",
+                hintText: AppLocalizations.of(context)!.search,
                 filled: true,
                 fillColor: backGrey,
                 border: OutlineInputBorder(
