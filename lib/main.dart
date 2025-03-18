@@ -3,6 +3,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/screens/home_page.dart';
+import 'package:task/screens/login_page.dart';
+import 'package:task/screens/register_page.dart';
+import 'package:task/screens/splash_screen.dart';
+import 'package:task/urun_cekme.dart';
 
 import 'screens/for_category.dart';
 
@@ -27,9 +33,23 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: [Locale('tr'), Locale('en')],
-          home: ForCategory(),
+          home: FutureBuilder(
+            future: _checkLoginStatus(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else {
+                return snapshot.data == true ? HomePage() : ProductListPage();
+              }
+            },
+          ),
         );
       },
     );
+  }
+
+  Future<bool> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token') != null;
   }
 }

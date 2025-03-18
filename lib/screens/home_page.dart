@@ -112,33 +112,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-//class _Category extends StatelessWidget {
-//  const _Category({super.key});
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Padding(
-//      padding: EdgeInsets.symmetric(horizontal: 8),
-//      child: TextButton(
-//        style: TextButton.styleFrom(
-//          backgroundColor:
-//              selectedCategory == category ? registerButtonTextColor : backGrey,
-//          foregroundColor:
-//              selectedCategory == category ? Colors.white : Colors.grey[500],
-//          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-//          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-//        ),
-//        onPressed: () {
-//          setState(() {
-//            selectedCategory = category;
-//          });
-//        },
-//        child: Text(
-//          category,
-//          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//        ),
-//      ),
-//    );
-//  }
-//}

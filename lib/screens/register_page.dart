@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../colors.dart';
 import '../components/custom_button.dart';
 import '../validation.dart';
@@ -12,7 +15,61 @@ import 'login_page.dart';
 final _formKey = GlobalKey<FormState>();
 
 class RegisterPage extends ConsumerWidget {
-  const RegisterPage({super.key});
+  RegisterPage({super.key});
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> registerUser(BuildContext context) async {
+    try {
+      final response = await http.post(
+        Uri.parse('https://assign-api.piton.com.tr/api/rest/register'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: jsonEncode(<String, String>{
+          'email': _emailController.text,
+          'name': _nameController.text,
+          'password': _passwordController.text,
+        }),
+      );
+
+      // API yanıtını console'a yazdırma
+      print('API Response: ${response.body}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final responseData = jsonDecode(response.body);
+
+        String? token = responseData['action_register']['token'];
+        String userId = responseData['user_id'] ?? 'default_user_id';
+
+        if (token == null) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Token alınamadı.')));
+          return;
+        }
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+        await prefs.setString('user_id', userId);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Kayıt başarısız! Status: ${response.statusCode}'),
+          ),
+        );
+      }
+    } catch (e) {
+      // Hata mesajını gösterme
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Bir hata oluştu: $e')));
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,6 +119,7 @@ class RegisterPage extends ConsumerWidget {
                   ),
                   SizedBox(height: 5.h),
                   TextFormField(
+                    controller: _nameController,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: inputBoxColor,
@@ -86,6 +144,7 @@ class RegisterPage extends ConsumerWidget {
                   ),
                   SizedBox(height: 5.h),
                   TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: inputBoxColor,
@@ -110,6 +169,7 @@ class RegisterPage extends ConsumerWidget {
                   ),
                   SizedBox(height: 5.h),
                   TextFormField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       filled: true,
@@ -143,8 +203,28 @@ class RegisterPage extends ConsumerWidget {
                   Spacer(),
                   CustomButton(
                     text: AppLocalizations.of(context)!.register,
-                    onPressed: () {
-                      _formKey.currentState!.validate();
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        try {
+                          await registerUser(context);
+                          Navigator.pop(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
+                        } catch (e) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text(e.toString())));
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Lütfen formu doğru doldurun.'),
+                          ),
+                        );
+                      }
                     },
                   ),
                   SizedBox(height: 30.h),
