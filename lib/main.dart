@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task/screens/home_page.dart';
-import 'package:task/screens/login_page.dart';
-import 'package:task/screens/register_page.dart';
-import 'package:task/screens/splash_screen.dart';
-import 'package:task/urun_cekme.dart';
+import 'package:task/features/auth/presentation/pages/splash_screen.dart';
+import 'package:task/features/theme/app_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:task/features/home/presentation/pages/home_page.dart';
 
-import 'screens/for_category.dart';
+void main() {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    debugPrint('FlutterError: ${details.exception}');
+  };
 
-void main() => runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -26,20 +29,21 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [Locale('tr'), Locale('en')],
+          supportedLocales: const [Locale('en', ''), Locale('tr', '')],
+          theme: AppTheme.mainTheme,
           home: FutureBuilder(
             future: _checkLoginStatus(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
               } else {
-                return snapshot.data == true ? HomePage() : ProductListPage();
+                return snapshot.data == true ? HomePage() : SplashScreen();
               }
             },
           ),

@@ -22,5 +22,18 @@
     "mailAlert": "Lütfen geçerli bir e-mail adresi giriniz.",
     "nameAlert": "Adınızı isim soyisim şeklinde giriniz.",
     "passwordAlert": "Şifre 6-20 karakter uzunluğunda ve alfanumerik olmalıdır.",
-    "error": "Hata"
+    "error": "Hata:",
+    "all": "Tümü",
+    "moneyType": "₺",
+    "navigationError": "Navigasyon hatası:",
+    "productNotFound": "Ürün bulunamadı",
+    "productNotAvailable": "Ürün mevcut değil",
+    "buyNow": "Satın Al",
+    "imageUpload": "Resim Yüklenemedi",
+    "registerFail": "Kayıt başarısız!",
+    "anErrorOccurred": "Bir hata oluştu:",
+    "pleaseFillCorrectly": "Lütfen formu doğru doldurun.",
+    "tokenError": "Token alınamadı.",
+    "doLogin": "Giriş yap",
+    "loginFail": "Giriş başarısız!"
 }

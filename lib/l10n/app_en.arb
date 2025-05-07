@@ -22,5 +22,18 @@
     "mailAlert": "Please enter a valid email address.",
     "nameAlert": "Please enter your name in the first name last name format.",
     "passwordAlert": "Password must be 6-20 characters long and alphanumeric.",
-    "error": "Error"
+    "error": "Error",
+    "all": "All",
+    "moneyType": "$",
+    "navigationError": "Navigation Error:",
+    "productNotFound": "Product Not Found",
+    "productNotAvailable": "Product Not Available",
+    "buyNow": "Buy Now",
+    "imageUpload": "İmage could not be loaded",
+    "registerFail": "Registration failed!",
+    "anErrorOccurred": "An error occurred:",
+    "pleaseFillCorrectly": "Please fill out the form correctly.",
+    "tokenError": "Token could not be received.",
+    "doLogin": "Login",
+    "loginFail": "Login failed!"
 }
