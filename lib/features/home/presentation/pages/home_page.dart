@@ -3,12 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:task/core/constants/endpoints.dart';
 import 'package:task/features/home/presentation/components/search_bar_widget.dart';
 import 'package:task/features/home/presentation/provider/home_provider.dart';
 import 'package:task/core/theme/app_theme.dart';
-import 'package:task/features/home/presentation/pages/detail_page.dart';
-import 'package:task/features/home/presentation/pages/for_category_page.dart';
 
 final selectedCategoryIdProvider = StateProvider<int>((ref) => 0);
 
@@ -289,25 +288,20 @@ void _onCategorySelected(WidgetRef ref, int id) {
   }
 }
 
-void _navigateToDetailPage(BuildContext context, product, String? imageUrl) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder:
-          (context) => DetailPage(product: product, imageUrl: imageUrl ?? ''),
-    ),
+void _navigateToDetailPage(
+  BuildContext context,
+  dynamic product,
+  String? imageUrl,
+) {
+  context.push(
+    '/details',
+    extra: {'product': product, 'imageUrl': imageUrl ?? ''},
   );
 }
 
 void _navigateToCategoryProducts(BuildContext context, category) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder:
-          (context) => CategoryProductsPage(
-            categoryId: category.id,
-            categoryName: category.name,
-          ),
-    ),
+  context.push(
+    '/category-products',
+    extra: {'categoryId': category.id, 'categoryName': category.name},
   );
 }

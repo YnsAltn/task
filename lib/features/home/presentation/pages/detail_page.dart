@@ -99,7 +99,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   child: GestureDetector(
                     onTap: () => favorite(ref, isFavorite),
                     child: Image.asset(
-                      isFavorite ? UNFAVORITE_ICON_PATH : FAVORITE_ICON_PATH,
+                      isFavorite ? FAVORITE_ICON_PATH : UNFAVORITE_ICON_PATH,
                       width: 40.w,
                       height: 40.h,
                     ),

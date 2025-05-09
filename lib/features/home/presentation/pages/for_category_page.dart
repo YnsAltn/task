@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:task/core/constants/endpoints.dart';
 import 'package:task/features/home/presentation/components/search_bar_widget.dart';
 import 'package:task/core/theme/app_theme.dart';
 import 'package:task/features/home/presentation/models/product_model.dart';
-import 'package:task/features/home/presentation/pages/detail_page.dart';
 import 'package:task/features/home/presentation/services/product_service.dart';
 
 class CategoryProductsPage extends ConsumerWidget {
@@ -115,19 +116,7 @@ class _ProductCard extends ConsumerWidget {
 
         return GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => DetailPage(
-                      product: product,
-                      imageUrl:
-                          imageUrl.isNotEmpty
-                              ? imageUrl
-                              : "https://via.placeholder.com/150",
-                    ),
-              ),
-            );
+            _navigateToDetailPage(context, product, imageUrl);
           },
 
           child: Card(
@@ -212,4 +201,18 @@ class _ProductCard extends ConsumerWidget {
       },
     );
   }
+}
+
+void _navigateToDetailPage(
+  BuildContext context,
+  dynamic product,
+  String? imageUrl,
+) {
+  context.push(
+    '/details',
+    extra: {
+      'product': product,
+      'imageUrl': imageUrl?.isNotEmpty == true ? imageUrl : PLACEHOLDER_URL,
+    },
+  );
 }

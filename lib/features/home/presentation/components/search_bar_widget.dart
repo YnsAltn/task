@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:task/features/home/presentation/pages/search_page.dart';
+import 'package:go_router/go_router.dart';
 import 'package:task/core/theme/app_theme.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -10,11 +10,9 @@ class SearchBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const SearchPage()),
-        );
+        _navigateToSearchPage(context);
       },
+
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 8.h),
         child: Container(
@@ -36,4 +34,8 @@ class SearchBarWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+void _navigateToSearchPage(BuildContext context) {
+  context.push('/search');
 }

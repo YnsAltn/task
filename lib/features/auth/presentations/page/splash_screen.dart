@@ -2,28 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:task/core/constants/endpoints.dart';
-import 'package:task/features/auth/presentations/page/login_page.dart';
-import 'package:task/features/home/presentation/pages/home_page.dart';
 import 'package:task/core/theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-          (route) => false,
-        );
+        _navigateToHome(context);
       }
     });
     return Scaffold(
@@ -45,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ],
             ),
           ),
+
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -53,16 +48,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      _loginOnTapped(context);
-                    },
+                    onPressed: () => _navigateToLogin(context),
                     child: Text(AppLocalizations.of(context)!.login),
                   ),
                   SizedBox(height: 10.h),
                   TextButton(
-                    onPressed: () {
-                      _skipOnTapped(context);
-                    },
+                    onPressed: () => _navigateToHome(context),
                     child: Text(
                       AppLocalizations.of(context)!.skip,
                       style: TextStyle(
@@ -81,20 +72,12 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-}
 
-void _loginOnTapped(BuildContext context) {
-  Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(builder: (context) => LoginPage()),
-    (route) => false,
-  );
-}
+  void _navigateToLogin(BuildContext context) {
+    context.go('/login');
+  }
 
-void _skipOnTapped(BuildContext context) {
-  Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(builder: (context) => HomePage()),
-    (route) => false,
-  );
+  void _navigateToHome(BuildContext context) {
+    context.go('/');
+  }
 }

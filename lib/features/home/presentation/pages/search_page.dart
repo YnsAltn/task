@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:task/features/home/presentation/models/product_model.dart';
 import 'package:task/features/home/presentation/provider/home_provider.dart';
-import 'package:task/features/home/presentation/pages/detail_page.dart';
 import 'package:task/core/theme/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -43,7 +43,7 @@ class SearchPage extends ConsumerWidget {
                             padding: EdgeInsets.all(16.w),
                             itemCount: books.length,
                             itemBuilder: (context, index) {
-                              return buildSearchResultItem(
+                              return _buildSearchResultItem(
                                 context,
                                 ref,
                                 books[index],
@@ -63,7 +63,7 @@ class SearchPage extends ConsumerWidget {
     );
   }
 
-  Widget buildSearchResultItem(
+  Widget _buildSearchResultItem(
     BuildContext context,
     WidgetRef ref,
     ProductModel book,
@@ -103,14 +103,7 @@ class SearchPage extends ConsumerWidget {
           ),
           onTap: () {
             if (imageUrl != null) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (context) =>
-                          DetailPage(product: book, imageUrl: imageUrl),
-                ),
-              );
+              _goDetailPage(context, book, imageUrl);
             }
           },
         ),
@@ -177,4 +170,8 @@ AppBar _appBar(BuildContext context) {
       ),
     ],
   );
+}
+
+void _goDetailPage(BuildContext context, dynamic product, String imageUrl) {
+  context.go('/details', extra: {'product': product, 'imageUrl': imageUrl});
 }

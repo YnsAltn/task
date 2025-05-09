@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:task/core/constants/endpoints.dart';
 import 'package:task/features/auth/presentations/component/custom_text_field.dart';
 import 'package:task/features/auth/presentations/provider/register_provider.dart';
 import 'package:task/features/auth/validation.dart';
 import 'package:task/core/theme/app_theme.dart';
-import 'login_page.dart';
 
 class RegisterPage extends ConsumerWidget {
   RegisterPage({super.key});
@@ -100,12 +100,8 @@ class RegisterPage extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => LoginPage()),
-                          );
-                        },
+                        onPressed: () => _goLoginPage(context),
+
                         child: Text(
                           AppLocalizations.of(context)!.login,
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -145,10 +141,7 @@ class RegisterPage extends ConsumerWidget {
                             ),
                           );
                           if (response != null) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (_) => LoginPage()),
-                            );
+                            _goLoginPage(context);
                           }
                         }
                       }
@@ -167,4 +160,8 @@ class RegisterPage extends ConsumerWidget {
       ),
     );
   }
+}
+
+void _goLoginPage(BuildContext context) {
+  context.push('/login');
 }
