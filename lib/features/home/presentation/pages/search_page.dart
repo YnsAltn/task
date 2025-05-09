@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/features/home/presentation/models/product_model.dart';
-import 'package:task/features/home/presentation/notifier/home_notifier.dart';
+import 'package:task/features/home/presentation/provider/home_provider.dart';
 import 'package:task/features/home/presentation/pages/detail_page.dart';
 import 'package:task/features/theme/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -34,7 +34,9 @@ class SearchPage extends ConsumerWidget {
                           ? Center(
                             child: Padding(
                               padding: EdgeInsets.all(16.w),
-                              child: const Text("Ürün Bulunamadı"),
+                              child: Text(
+                                AppLocalizations.of(context)!.prductNotFound,
+                              ),
                             ),
                           )
                           : ListView.builder(
@@ -53,7 +55,10 @@ class SearchPage extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Hata: $error')),
+        error:
+            (error, stack) => Center(
+              child: Text('${AppLocalizations.of(context)!.error}: $error'),
+            ),
       ),
     );
   }
@@ -98,7 +103,7 @@ class SearchPage extends ConsumerWidget {
           ),
           onTap: () {
             if (imageUrl != null) {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder:
@@ -134,7 +139,7 @@ class CustomSearchBar extends ConsumerWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.texFormBackground,
-          hintText: "Arama Yapın",
+          hintText: AppLocalizations.of(context)!.search,
           hintStyle: TextStyle(color: Colors.grey.shade600),
           prefixIcon: const Icon(Icons.search, color: Colors.grey),
           suffixIcon: const Icon(Icons.filter_list, color: Colors.grey),
@@ -162,7 +167,7 @@ AppBar _appBar(BuildContext context) {
       Padding(
         padding: EdgeInsets.only(right: 15.w),
         child: Text(
-          "Arama Sonuçları",
+          AppLocalizations.of(context)!.searchResult,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22.sp,

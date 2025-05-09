@@ -80,7 +80,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                             color: AppColors.grey,
                             child: Center(
                               child: Text(
-                                "Resim yüklenemedi",
+                                AppLocalizations.of(context)!.imageUpload,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.buttonColor,
@@ -187,14 +187,14 @@ void favorite(WidgetRef ref, bool isFavorite) {
   if (isFavorite) {
     ScaffoldMessenger.of(ref.context).showSnackBar(
       SnackBar(
-        content: Text("Favorilerden çıkarıldı!"),
+        content: Text(AppLocalizations.of(ref.context)!.removedFromFavorites),
         duration: Duration(seconds: 1),
       ),
     );
   } else {
     ScaffoldMessenger.of(ref.context).showSnackBar(
       SnackBar(
-        content: Text("Favorilere eklendi!"),
+        content: Text(AppLocalizations.of(ref.context)!.addedToFavorites),
         duration: Duration(seconds: 1),
       ),
     );

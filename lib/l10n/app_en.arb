@@ -35,5 +35,11 @@
     "pleaseFillCorrectly": "Please fill out the form correctly.",
     "tokenError": "Token could not be received.",
     "doLogin": "Login",
-    "loginFail": "Login failed!"
+    "loginFail": "Login failed!",
+    "loginSuccess": "Login successful!",
+    "registerSuccess": "Registration successful!",
+    "prductNotFound": "Product not found",
+    "searchResult": "Search Results",
+    "addedToFavorites": "Added to favorites!",
+    "removedFromFavorites": "Removed from favorites!"
 }

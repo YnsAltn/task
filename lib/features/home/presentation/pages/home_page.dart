@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:task/features/home/presentation/components/search_bar_widget.dart';
-import 'package:task/features/home/presentation/notifier/home_notifier.dart';
+import 'package:task/features/home/presentation/provider/home_provider.dart';
 import 'package:task/features/theme/app_theme.dart';
 import 'package:task/features/home/presentation/pages/detail_page.dart';
 import 'package:task/features/home/presentation/pages/for_category_page.dart';
@@ -42,12 +42,15 @@ class HomePage extends ConsumerWidget {
       ),
       body: state.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Hata: $error')),
+        error:
+            (error, stack) => Center(
+              child: Text('${AppLocalizations.of(context)!.error}: $error'),
+            ),
         data:
             (data) => SingleChildScrollView(
               child: Column(
                 children: [
-                  Divider(color: Colors.grey.shade300, thickness: 2),
+                  Divider(color: AppColors.texFormBackground, thickness: 2),
                   const SizedBox(height: 16),
                   const _CategoryBar(),
                   const SizedBox(height: 16),
@@ -78,7 +81,12 @@ class _CategoryBar extends ConsumerWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          _buildCategoryButton(ref, 0, "All", selectedCategoryId),
+          _buildCategoryButton(
+            ref,
+            0,
+            "${AppLocalizations.of(context)!.all}",
+            selectedCategoryId,
+          ),
           ...state.categoryModel.map(
             (category) => _buildCategoryButton(
               ref,

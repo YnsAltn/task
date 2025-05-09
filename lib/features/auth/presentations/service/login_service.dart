@@ -1,18 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task/features/auth/presentation/models/login_model.dart';
-import 'package:task/features/auth/presentation/models/response_login_model.dart';
+import 'package:task/core/constants/endpoints.dart';
+import 'package:task/features/auth/presentations/model/login_model.dart';
+import 'package:task/features/auth/presentations/model/login_response_model.dart';
 
 class LoginService {
-  static const String baseUrl = 'https://assign-api.piton.com.tr/api/rest';
-
   Future<LoginResponseModel?> loginUser(
     LoginRequestModel requestModel,
     bool rememberMe,
   ) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/login'),
+      Uri.parse(LOGIN_URL),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(requestModel.toJson()),
     );
@@ -27,22 +26,16 @@ class LoginService {
       }
 
       return LoginResponseModel(token: token);
+    } else {
+      final responseData = jsonDecode(response.body);
+      final errorMessage = responseData['message'] ?? 'Giriş başarısız';
+      throw Exception(errorMessage);
     }
-    return null;
   }
 
   Future<void> _saveUserData(String token, String userId) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
     await prefs.setString('user_id', userId);
-  }
-
-  Future<LoginResponseModel?> getSavedUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    if (token != null) {
-      return LoginResponseModel(token: token);
-    }
-    return null;
   }
 }

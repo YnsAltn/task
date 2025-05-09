@@ -3,14 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:task/features/auth/presentation/providers/auth_provider.dart';
-import 'package:task/features/home/presentation/pages/home_page.dart';
-import 'package:task/features/theme/app_theme.dart';
-import 'package:task/features/auth/presentation/components/custom_text_field.dart';
-import 'package:task/features/auth/presentation/pages/register_page.dart';
+import 'package:task/features/auth/presentations/component/custom_text_field.dart';
+import 'package:task/features/auth/presentations/page/register_page.dart';
+import 'package:task/features/auth/presentations/provider/login_provider.dart';
 import 'package:task/features/auth/validation.dart';
-
-final checkboxProvider = StateProvider<bool>((ref) => false);
+import 'package:task/features/theme/app_theme.dart';
 
 class LoginPage extends ConsumerWidget {
   LoginPage({super.key});
@@ -20,7 +17,8 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isChecked = ref.watch(checkboxProvider);
+    final loginState = ref.watch(loginProvider);
+    final loginNotifier = ref.read(loginProvider.notifier);
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -41,7 +39,6 @@ class LoginPage extends ConsumerWidget {
                       "assets/logo/logo.svg",
                       height: 50.h,
                       width: 50.w,
-                      fit: BoxFit.contain,
                     ),
                   ),
                   SizedBox(height: 75.h),
@@ -61,9 +58,8 @@ class LoginPage extends ConsumerWidget {
                   Text(
                     "E-mail",
                     style: TextStyle(
-                      fontSize: 16.sp,
-                      color: AppColors.black,
                       fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
                     ),
                   ),
                   SizedBox(height: 5.h),
@@ -71,14 +67,14 @@ class LoginPage extends ConsumerWidget {
                     controller: _emailController,
                     hintText: "John Doe",
                     validator: (value) => validateEmail(context, value),
+                    onChanged: loginNotifier.setEmail,
                   ),
                   SizedBox(height: 20.h),
                   Text(
                     AppLocalizations.of(context)!.password,
                     style: TextStyle(
-                      fontSize: 16.sp,
-                      color: AppColors.black,
                       fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
                     ),
                   ),
                   SizedBox(height: 5.h),
@@ -86,6 +82,7 @@ class LoginPage extends ConsumerWidget {
                     controller: _passwordController,
                     hintText: "● ● ● ● ● ● ● ●",
                     validator: (value) => validatePassword(context, value),
+                    onChanged: loginNotifier.setPassword,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,35 +90,64 @@ class LoginPage extends ConsumerWidget {
                       Row(
                         children: [
                           Checkbox.adaptive(
-                            value: isChecked,
+                            value: loginState.rememberMe,
                             onChanged:
-                                (value) => _onCheckboxChanged(ref, value),
+                                (value) => loginNotifier.toggleRememberMe(
+                                  value ?? false,
+                                ),
                           ),
                           TextButton(
                             onPressed:
-                                () => _onCheckboxChanged(ref, !isChecked),
+                                () => loginNotifier.toggleRememberMe(
+                                  !loginState.rememberMe,
+                                ),
                             child: Text(
                               AppLocalizations.of(context)!.rememberMe,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
                       ),
                       TextButton(
-                        onPressed: () {
-                          _goRegisterPage(context);
-                        },
+                        onPressed: () => _goRegisterPage(context),
                         child: Text(
                           AppLocalizations.of(context)!.register,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
                   ),
                   Spacer(),
                   ElevatedButton(
-                    onPressed: () => _loginButton(context, ref),
-                    child: Text(AppLocalizations.of(context)!.doLogin),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final success = await loginNotifier.loginUser(context);
+
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                success
+                                    ? AppLocalizations.of(context)!.loginSuccess
+                                    : AppLocalizations.of(context)!.loginFail,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor:
+                                  success
+                                      ? AppColors.green
+                                      : AppColors.buttonColor,
+                              duration: const Duration(seconds: 1),
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    child:
+                        loginState.isSubmitting
+                            ? const CircularProgressIndicator()
+                            : Text(AppLocalizations.of(context)!.doLogin),
                   ),
                   SizedBox(height: 30.h),
                 ],
@@ -133,37 +159,10 @@ class LoginPage extends ConsumerWidget {
     );
   }
 
-  void _loginButton(BuildContext context, WidgetRef ref) async {
-    if (_formKey.currentState!.validate()) {
-      final email = _emailController.text;
-      final password = _passwordController.text;
-      final isChecked = ref.read(checkboxProvider);
-
-      await ref
-          .read(userProvider.notifier)
-          .loginUser(email, password, isChecked);
-
-      if (ref.read(userProvider) != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.loginFail)),
-        );
-      }
-    }
+  void _goRegisterPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RegisterPage()),
+    );
   }
-}
-
-void _goRegisterPage(BuildContext context) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => RegisterPage()),
-  );
-}
-
-void _onCheckboxChanged(WidgetRef ref, bool? value) {
-  ref.read(checkboxProvider.notifier).state = value ?? false;
 }

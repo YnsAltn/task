@@ -35,5 +35,11 @@
     "pleaseFillCorrectly": "Lütfen formu doğru doldurun.",
     "tokenError": "Token alınamadı.",
     "doLogin": "Giriş yap",
-    "loginFail": "Giriş başarısız!"
+    "loginFail": "Giriş başarısız!",
+    "loginSuccess": "Giriş başarılı!",
+    "registerSuccess": "Kayıt başarılı!",
+    "prductNotFound": "Ürün bulunamadı",
+    "searchResult": "Arama Sonuçları",
+    "addedToFavorites": "Favorilere eklendi!",
+    "removedFromFavorites": "Favorilerden kaldırıldı!"
 }
