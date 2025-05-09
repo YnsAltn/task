@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:task/core/constants/endpoints.dart';
 import 'package:task/features/auth/presentations/page/login_page.dart';
 import 'package:task/features/home/presentation/pages/home_page.dart';
-import 'package:task/features/theme/app_theme.dart';
+import 'package:task/core/theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
               children: [
                 SvgPicture.asset(
-                  "assets/logo/logo.svg",
+                  LOGO_PATH,
                   height: 170.h,
                   width: 170.w,
                   fit: BoxFit.contain,

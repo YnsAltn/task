@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:task/core/constants/endpoints.dart';
 import 'package:task/features/auth/presentations/component/custom_text_field.dart';
 import 'package:task/features/auth/presentations/page/register_page.dart';
 import 'package:task/features/auth/presentations/provider/login_provider.dart';
 import 'package:task/features/auth/validation.dart';
-import 'package:task/features/theme/app_theme.dart';
+import 'package:task/core/theme/app_theme.dart';
 
 class LoginPage extends ConsumerWidget {
   LoginPage({super.key});
@@ -36,7 +37,7 @@ class LoginPage extends ConsumerWidget {
                   SizedBox(height: 50.h),
                   Center(
                     child: SvgPicture.asset(
-                      "assets/logo/logo.svg",
+                      LOGO_PATH,
                       height: 50.h,
                       width: 50.w,
                     ),

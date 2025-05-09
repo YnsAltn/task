@@ -6,9 +6,9 @@ import 'package:task/features/home/presentation/models/product_model.dart';
 
 class ProductService {
   Future<List<ProductModel>> getProduct(int categoryId) async {
-    String url = "PRODUCT_URL/$categoryId";
+    final String url = '$PRODUCT_URL/$categoryId';
 
-    http.Response response = await http.get(
+    final response = await http.get(
       Uri.parse(url),
       headers: {'x-hasura-user-id': '422'},
     );
@@ -41,4 +41,4 @@ class ProductService {
   }
 }
 
-final ProductProvider = Provider<ProductService>((ref) => ProductService());
+final productProvider = Provider<ProductService>((ref) => ProductService());

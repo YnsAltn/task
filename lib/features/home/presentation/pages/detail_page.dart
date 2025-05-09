@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:task/features/theme/app_theme.dart';
+import 'package:task/core/constants/endpoints.dart';
+import 'package:task/core/theme/app_theme.dart';
 import 'package:task/features/home/presentation/models/product_model.dart';
 
 final favoriteProvider = StateProvider<bool>((ref) => false);
@@ -98,9 +99,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   child: GestureDetector(
                     onTap: () => favorite(ref, isFavorite),
                     child: Image.asset(
-                      isFavorite
-                          ? "assets/icon/Variant.png"
-                          : "assets/icon/Default.png",
+                      isFavorite ? UNFAVORITE_ICON_PATH : FAVORITE_ICON_PATH,
                       width: 40.w,
                       height: 40.h,
                     ),

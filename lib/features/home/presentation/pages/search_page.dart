@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/features/home/presentation/models/product_model.dart';
 import 'package:task/features/home/presentation/provider/home_provider.dart';
 import 'package:task/features/home/presentation/pages/detail_page.dart';
-import 'package:task/features/theme/app_theme.dart';
+import 'package:task/core/theme/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchPage extends ConsumerWidget {

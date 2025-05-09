@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:task/core/constants/endpoints.dart';
 import 'package:task/features/auth/presentations/component/custom_text_field.dart';
 import 'package:task/features/auth/presentations/provider/register_provider.dart';
 import 'package:task/features/auth/validation.dart';
-import 'package:task/features/theme/app_theme.dart';
+import 'package:task/core/theme/app_theme.dart';
 import 'login_page.dart';
 
 class RegisterPage extends ConsumerWidget {
@@ -34,7 +35,7 @@ class RegisterPage extends ConsumerWidget {
                   SizedBox(height: 50.h),
                   Center(
                     child: SvgPicture.asset(
-                      "assets/logo/logo.svg",
+                      LOGO_PATH,
                       height: 50.h,
                       width: 50.h,
                       fit: BoxFit.contain,
@@ -167,5 +168,3 @@ class RegisterPage extends ConsumerWidget {
     );
   }
 }
-
-Future<void> _registerButton(BuildContext context, WidgetRef ref) async {}

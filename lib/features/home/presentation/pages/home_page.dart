@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:task/core/constants/endpoints.dart';
 import 'package:task/features/home/presentation/components/search_bar_widget.dart';
 import 'package:task/features/home/presentation/provider/home_provider.dart';
-import 'package:task/features/theme/app_theme.dart';
+import 'package:task/core/theme/app_theme.dart';
 import 'package:task/features/home/presentation/pages/detail_page.dart';
 import 'package:task/features/home/presentation/pages/for_category_page.dart';
 
@@ -21,11 +22,7 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: SvgPicture.asset(
-          "assets/logo/logo.svg",
-          height: 30.h,
-          width: 30.w,
-        ),
+        title: SvgPicture.asset(LOGO_PATH, height: 30.h, width: 30.w),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 15.w),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/features/home/presentation/pages/search_page.dart';
-import 'package:task/features/theme/app_theme.dart';
+import 'package:task/core/theme/app_theme.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:task/features/home/presentation/components/search_bar_widget.dart';
-import 'package:task/features/theme/app_theme.dart';
+import 'package:task/core/theme/app_theme.dart';
 import 'package:task/features/home/presentation/models/product_model.dart';
 import 'package:task/features/home/presentation/pages/detail_page.dart';
 import 'package:task/features/home/presentation/services/product_service.dart';
@@ -16,7 +16,7 @@ class CategoryProductsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productResponse = ref.watch(ProductProvider);
+    final productResponse = ref.watch(productProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -109,7 +109,7 @@ class _ProductCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FutureBuilder<String>(
-      future: ref.watch(ProductProvider).getImageUrl(product.cover),
+      future: ref.watch(productProvider).getImageUrl(product.cover),
       builder: (context, snapshot) {
         final imageUrl = snapshot.data ?? "";
 
